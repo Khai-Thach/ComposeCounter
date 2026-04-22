@@ -17,6 +17,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import edu.temple.counter.ui.theme.CounterTheme
+import androidx.compose.material3.Button
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,12 +41,23 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun Counter(modifier: Modifier = Modifier) {
-    Column (modifier = modifier.fillMaxSize(), verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally) {
-        Text(
-            text = "0",
-            fontSize = 192.sp
-        )
+
+    var count by remember { mutableIntStateOf(0) }
+
+    Column (
+        modifier = modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Button(onClick = {count++}) {
+            Text("UP")
+        }
+
+        Text(text = count.toString(),
+            fontSize = 192.sp)
+        Button (onClick = {count--}) {
+            Text("DOWN")
+        }
     }
 }
 
